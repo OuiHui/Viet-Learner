@@ -1,0 +1,213 @@
+{
+  "categories": [
+    {
+      "name": "Family"
+    },
+    {
+      "name": "Food"
+    },
+    {
+      "name": "Hobbies"
+    },
+    {
+      "name": "Travel"
+    },
+    {
+      "name": "Common Words"
+    },
+    {
+      "name": "Context"
+    },
+    {
+      "name": "Adjectives"
+    }
+  ],
+  "flashcards": [
+    {
+      "_id": "fc_0",
+      "word": "Gia đình",
+      "definition": "Family",
+      "category": "Family",
+      "example": "Gia đình tôi có bốn người.",
+      "translation": "My family has four people."
+    },
+    {
+      "_id": "fc_1",
+      "word": "Bố mẹ",
+      "definition": "Parents",
+      "category": "Family",
+      "example": "Bố mẹ tôi sống ở Hà Nội.",
+      "translation": "My parents live in Hanoi."
+    },
+    {
+      "_id": "fc_2",
+      "word": "Ăn cơm",
+      "definition": "To eat a meal / rice",
+      "category": "Food",
+      "example": "Bạn đã ăn cơm chưa?",
+      "translation": "Have you eaten rice yet?"
+    },
+    {
+      "_id": "fc_3",
+      "word": "Phở",
+      "definition": "Pho (Vietnamese noodle soup)",
+      "category": "Food",
+      "example": "Tôi thích ăn phở bò vào buổi sáng.",
+      "translation": "I like to eat beef pho in the morning."
+    },
+    {
+      "_id": "fc_4",
+      "word": "Du lịch",
+      "definition": "To travel / tourism",
+      "category": "Travel",
+      "example": "Năm sau tôi muốn đi du lịch Việt Nam.",
+      "translation": "Next year I want to travel to Vietnam."
+    },
+    {
+      "_id": "fc_5",
+      "word": "Đọc sách",
+      "definition": "To read books",
+      "category": "Hobbies",
+      "example": "Đọc sách giúp tôi học được nhiều điều.",
+      "translation": "Reading books helps me learn many things."
+    },
+    {
+      "_id": "fc_6",
+      "word": "Xin chào",
+      "definition": "Hello / Greetings",
+      "category": "Common Words",
+      "example": "Xin chào! Rất vui được gặp bạn.",
+      "translation": "Hello! Nice to meet you."
+    },
+    {
+      "_id": "fc_7",
+      "word": "Cảm ơn",
+      "definition": "Thank you",
+      "category": "Common Words",
+      "example": "Cảm ơn bạn đã giúp đỡ tôi.",
+      "translation": "Thank you for helping me."
+    },
+    {
+      "_id": "fc_1782349082228w8jld",
+      "word": "cái thìa",
+      "definition": "spoon (Northern Dialect)",
+      "category": "Context",
+      "example": "Tôi ăn súp bằng cái muỗng.",
+      "translation": "I eat soup with a spoon.",
+      "createdAt": "2026-06-25T00:58:02.228Z"
+    },
+    {
+      "_id": "fc_1782349796630b2sz6",
+      "word": "cái muỗng",
+      "definition": "spoon (South)",
+      "category": "Context",
+      "example": "Tôi ăn súp bằng cái muỗng.",
+      "translation": "I eat soup with a spoon.",
+      "createdAt": "2026-06-25T01:09:56.630Z"
+    },
+    {
+      "_id": "fc_1782349796635vjsz8",
+      "word": "cái muỗng",
+      "definition": "spoon (South)",
+      "category": "Food",
+      "example": "Tôi ăn súp bằng cái muỗng.",
+      "translation": "I eat soup with a spoon.",
+      "createdAt": "2026-06-25T01:09:56.635Z"
+    },
+    {
+      "_id": "fc_1782350089956waqzu",
+      "word": "đơn giản",
+      "definition": "simple",
+      "category": "Context",
+      "example": "Tôi muốn học từ \"đơn giản\" ngày hôm nay.",
+      "translation": "I want to learn the word \"simple\" today.",
+      "createdAt": "2026-06-25T01:14:49.956Z"
+    },
+    {
+      "_id": "fc_1782350097946kyis3",
+      "word": "đơn giản",
+      "definition": "simple",
+      "category": "Common Words",
+      "example": "Tôi muốn học từ \"đơn giản\" ngày hôm nay.",
+      "translation": "I want to learn the word \"simple\" today.",
+      "createdAt": "2026-06-25T01:14:57.946Z"
+    },
+    {
+      "_id": "fc_1782351036026fqc1n",
+      "word": "ccai nia",
+      "definition": "fork",
+      "category": "General",
+      "example": "Toi an mi bang cai nia.",
+      "translation": "I eat noodles with a fork.",
+      "createdAt": "2026-06-25T01:30:36.026Z"
+    },
+    {
+      "_id": "fc_178235141560580z53",
+      "word": "Chú",
+      "definition": "Uncle",
+      "category": "General",
+      "example": "",
+      "translation": "",
+      "createdAt": "2026-06-25T01:36:55.605Z"
+    },
+    {
+      "_id": "fc_178235147657367mjn",
+      "word": "Dì",
+      "definition": "Aunt",
+      "category": "General",
+      "example": "",
+      "translation": "",
+      "createdAt": "2026-06-25T01:37:56.573Z"
+    },
+    {
+      "_id": "fc_1782351924175uzuvv",
+      "word": "Cháu trai",
+      "definition": "Nephew",
+      "category": "Family",
+      "example": "",
+      "translation": "",
+      "createdAt": "2026-06-25T01:45:24.175Z"
+    }
+  ],
+  "vocabulary": [
+    {
+      "_id": "v_1782349082228clo47",
+      "word": "cái thìa",
+      "definition": "spoon (Northern Dialect)",
+      "category": "Kitchen / Utensil",
+      "contextSentence": "Tôi ăn súp bằng cái muỗng.",
+      "contextTranslation": "I eat soup with a spoon.",
+      "source": "English Translator",
+      "dateLearned": "2026-06-25T00:58:02.228Z"
+    },
+    {
+      "_id": "v_1782349796630c2mdn",
+      "word": "cái muỗng",
+      "definition": "spoon (South)",
+      "category": "Food",
+      "contextSentence": "Tôi ăn súp bằng cái muỗng.",
+      "contextTranslation": "I eat soup with a spoon.",
+      "source": "English Translator",
+      "dateLearned": "2026-06-25T01:09:56.630Z"
+    },
+    {
+      "_id": "v_1782350089956l3pzv",
+      "word": "đơn giản",
+      "definition": "simple",
+      "category": "Common Words",
+      "contextSentence": "Tôi muốn học từ \"đơn giản\" ngày hôm nay.",
+      "contextTranslation": "I want to learn the word \"simple\" today.",
+      "source": "English Translator",
+      "dateLearned": "2026-06-25T01:14:49.956Z"
+    }
+  ],
+  "progress": {
+    "userId": "default_user",
+    "streak": 1,
+    "lastActive": "2026-06-25T01:44:07.639Z",
+    "articlesRead": [
+      "article_int_1"
+    ],
+    "listeningSeconds": 0
+  }
+}
