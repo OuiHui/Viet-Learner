@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ARTICLES, DICTIONARY } from '../lib/articlesData';
+import { DICTIONARY } from '../lib/articlesData';
 
 export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRead }) {
   const [activeLevel, setActiveLevel] = useState('Beginner');
@@ -19,6 +19,42 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
   const [isSaved, setIsSaved] = useState(false);
   const viewerContentRef = useRef(null);
   const audioRef = useRef(null);
+
+  // Dynamic articles state
+  const [articles, setArticles] = useState([]);
+  const [loadingArticles, setLoadingArticles] = useState(true);
+  
+  // Importer Panel state
+  const [showImporter, setShowImporter] = useState(false);
+  const [importTab, setImportTab] = useState('ai'); // 'ai' or 'news'
+  const [aiTopic, setAiTopic] = useState('');
+  const [aiLevel, setAiLevel] = useState('Beginner');
+  const [newsFeed, setNewsFeed] = useState('https://vnexpress.net/rss/du-lich.rss');
+  const [customNewsUrl, setCustomNewsUrl] = useState('');
+  const [isImporting, setIsImporting] = useState(false);
+  const [importMessage, setImportMessage] = useState({ type: '', text: '' });
+
+  // Fetch articles from API
+  const fetchArticles = async () => {
+    setLoadingArticles(true);
+    try {
+      const res = await fetch('/api/articles');
+      if (res.ok) {
+        const data = await res.json();
+        setArticles(data);
+      } else {
+        console.error('Failed to fetch articles');
+      }
+    } catch (err) {
+      console.error('Error fetching articles:', err);
+    } finally {
+      setLoadingArticles(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   // Mark article read on open
   useEffect(() => {
@@ -193,7 +229,7 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
     const segments = [];
     let index = 0;
 
-    const regexBoundary = /[^a-zA-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸđĐ]/;
+    const regexBoundary = /[^\p{L}\p{M}]/u;
 
     while (index < sentenceText.length) {
       let matched = false;
@@ -221,7 +257,7 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
 
       if (!matched) {
         let wordEnd = index;
-        const regexAlpha = /[a-zA-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸđĐ]/;
+        const regexAlpha = /[\p{L}\p{M}]/u;
         const isAlpha = regexAlpha.test(sentenceText[index]);
 
         if (isAlpha) {
@@ -244,7 +280,7 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
 
   const renderSentenceText = (sentence) => {
     const segments = tokenizeSentence(sentence.text);
-    const regexWord = /[a-zA-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸđĐ]/;
+    const regexWord = /[\p{L}\p{M}]/u;
 
     return segments.map((segment, idx) => {
       const isWord = regexWord.test(segment.text);
@@ -259,7 +295,6 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
             className={`word-span ${saved ? 'saved' : ''} ${highlighted ? 'highlighted' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
-              // Prevent firing if user is selecting text
               if (window.getSelection().toString().trim().length > 0) {
                 return;
               }
@@ -275,39 +310,254 @@ export default function ReadingLoungeView({ savedWords, onVocabSaved, onMarkAsRe
     });
   };
 
-  const filteredArticles = ARTICLES.filter((a) => a.level === activeLevel);
+  // AI Generator Submission
+  const handleGenerateAI = async (e) => {
+    e.preventDefault();
+    if (!aiTopic.trim()) return;
+    setIsImporting(true);
+    setImportMessage({ type: '', text: '' });
+    try {
+      const res = await fetch('/api/articles/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic: aiTopic.trim(), level: aiLevel }),
+      });
+      if (res.ok) {
+        const newArt = await res.json();
+        setImportMessage({ type: 'success', text: `Successfully generated AI article: "${newArt.title}"!` });
+        setAiTopic('');
+        await fetchArticles(); // Refresh list
+        setSelectedArticle(newArt); // View immediately
+        setShowImporter(false);
+      } else {
+        const err = await res.json();
+        setImportMessage({ type: 'error', text: err.error || 'AI generation failed.' });
+      }
+    } catch (err) {
+      setImportMessage({ type: 'error', text: err.message });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  // News Importer Submission
+  const handleImportNews = async (e) => {
+    e.preventDefault();
+    const urlToScrape = customNewsUrl.trim() || newsFeed;
+    if (!urlToScrape) return;
+    setIsImporting(true);
+    setImportMessage({ type: '', text: '' });
+    try {
+      const res = await fetch('/api/articles/scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: urlToScrape }),
+      });
+      if (res.ok) {
+        const newArt = await res.json();
+        setImportMessage({ type: 'success', text: `Successfully imported article: "${newArt.title}"!` });
+        setCustomNewsUrl('');
+        await fetchArticles(); // Refresh list
+        setSelectedArticle(newArt); // View immediately
+        setShowImporter(false);
+      } else {
+        const err = await res.json();
+        setImportMessage({ type: 'error', text: err.error || 'News scrape failed.' });
+      }
+    } catch (err) {
+      setImportMessage({ type: 'error', text: err.message });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  const filteredArticles = articles.filter((a) => a.level === activeLevel);
 
   return (
     <div className="page-section">
       {!selectedArticle ? (
         <div>
-          <div className="level-filters">
-            {['Beginner', 'Intermediate', 'Advanced'].map((level) => (
-              <button
-                key={level}
-                className={`level-btn ${activeLevel === level ? 'active' : ''}`}
-                onClick={() => setActiveLevel(level)}
-              >
-                {level}
-              </button>
-            ))}
+          {/* Header Row with Filter & Import triggers */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+            <div className="level-filters" style={{ marginBottom: 0 }}>
+              {['Beginner', 'Intermediate', 'Advanced'].map((level) => (
+                <button
+                  key={level}
+                  className={`level-btn ${activeLevel === level ? 'active' : ''}`}
+                  onClick={() => setActiveLevel(level)}
+                >
+                  {level}
+                </button>
+              ))}
+            </div>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setShowImporter(!showImporter);
+                setImportMessage({ type: '', text: '' });
+              }}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              <span>{showImporter ? '✕ Close Panel' : '➕ Load New Content'}</span>
+            </button>
           </div>
 
-          <div className="article-selector">
-            {filteredArticles.map((art) => (
-              <div
-                key={art.id}
-                className="card-glass article-card"
-                onClick={() => setSelectedArticle(art)}
-              >
-                <h3>{art.title}</h3>
-                <div className="meta">
-                  <span>📶 {art.level}</span>
-                  <span>📝 {art.sentences.length} sentences</span>
-                </div>
+          {/* Collapsible Importer Panel */}
+          {showImporter && (
+            <div className="card-glass" style={{ padding: '20px', marginBottom: '24px', animation: 'fadeIn 0.3s ease-out' }}>
+              <div style={{ display: 'flex', borderBottom: '1px solid var(--border-color)', marginBottom: '16px', gap: '16px' }}>
+                <button
+                  className={`level-btn ${importTab === 'ai' ? 'active' : ''}`}
+                  style={{ background: 'none', borderBottom: importTab === 'ai' ? '2px solid var(--accent-primary)' : 'none', borderRadius: 0, paddingBottom: '8px' }}
+                  onClick={() => setImportTab('ai')}
+                >
+                  🤖 AI Story Generator
+                </button>
+                <button
+                  className={`level-btn ${importTab === 'news' ? 'active' : ''}`}
+                  style={{ background: 'none', borderBottom: importTab === 'news' ? '2px solid var(--accent-primary)' : 'none', borderRadius: 0, paddingBottom: '8px' }}
+                  onClick={() => setImportTab('news')}
+                >
+                  📰 VnExpress News Importer
+                </button>
               </div>
-            ))}
-          </div>
+
+              {importTab === 'ai' ? (
+                <form onSubmit={handleGenerateAI}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                    Generate a customized graded reading passage in Vietnamese on any topic. The AI will construct the story, translate it, and auto-populate key vocabulary list.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'flex-end' }}>
+                    <div style={{ flex: '1 1 250px' }}>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Topic or Idea</label>
+                      <input
+                        type="text"
+                        placeholder="e.g., Coffee culture, Hanoi Train Street, Autumn weather"
+                        value={aiTopic}
+                        onChange={(e) => setAiTopic(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                        disabled={isImporting}
+                      />
+                    </div>
+                    <div style={{ flex: '0 0 150px' }}>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Proficiency Level</label>
+                      <select
+                        value={aiLevel}
+                        onChange={(e) => setAiLevel(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                        disabled={isImporting}
+                      >
+                        <option value="Beginner" style={{ background: '#222' }}>Beginner</option>
+                        <option value="Intermediate" style={{ background: '#222' }}>Intermediate</option>
+                        <option value="Advanced" style={{ background: '#222' }}>Advanced</option>
+                      </select>
+                    </div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isImporting || !aiTopic.trim()}
+                      style={{ padding: '11px 20px' }}
+                    >
+                      {isImporting ? 'Generating...' : '✨ Generate'}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <form onSubmit={handleImportNews}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                    Load live, authentic news articles from Vietnam. We will fetch the contents, divide it into study paragraphs, and auto-translate sentences.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Select Live RSS Feed Channel</label>
+                      <select
+                        value={newsFeed}
+                        onChange={(e) => setNewsFeed(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                        disabled={isImporting || !!customNewsUrl}
+                      >
+                        <option value="https://vnexpress.net/rss/du-lich.rss" style={{ background: '#222' }}>🏝️ Du lịch (Travel News)</option>
+                        <option value="https://vnexpress.net/rss/gia-dinh.rss" style={{ background: '#222' }}>🍲 Ẩm thực & Đời sống (Family & Food)</option>
+                        <option value="https://vnexpress.net/rss/the-gioi.rss" style={{ background: '#222' }}>🌐 Tin thế giới (World News)</option>
+                        <option value="https://vnexpress.net/rss/giai-tri.rss" style={{ background: '#222' }}>🎭 Giải trí (Entertainment)</option>
+                      </select>
+                    </div>
+                    <div style={{ alignSelf: 'center', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>— OR —</div>
+                    <div>
+                      <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Paste custom VnExpress article link</label>
+                      <input
+                        type="url"
+                        placeholder="https://vnexpress.net/du-lich-viet-nam-..."
+                        value={customNewsUrl}
+                        onChange={(e) => setCustomNewsUrl(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                        disabled={isImporting}
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isImporting}
+                      style={{ alignSelf: 'flex-end', padding: '11px 20px' }}
+                    >
+                      {isImporting ? 'Importing & Translating...' : '📥 Import News'}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Status messages */}
+              {importMessage.text && (
+                <div
+                  style={{
+                    marginTop: '16px',
+                    padding: '10px 14px',
+                    borderRadius: '6px',
+                    fontSize: '0.9rem',
+                    background: importMessage.type === 'success' ? 'rgba(46, 213, 115, 0.15)' : 'rgba(255, 71, 87, 0.15)',
+                    border: importMessage.type === 'success' ? '1px solid rgba(46, 213, 115, 0.3)' : '1px solid rgba(255, 71, 87, 0.3)',
+                    color: importMessage.type === 'success' ? '#2ed573' : '#ff4757',
+                  }}
+                >
+                  {importMessage.text}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Articles list */}
+          {loadingArticles ? (
+            <div style={{ textAlign: 'center', padding: '40px', fontStyle: 'italic', color: 'var(--text-secondary)' }}>
+              Loading reading lounge materials...
+            </div>
+          ) : filteredArticles.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px dashed var(--border-color)' }}>
+              <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '8px' }}>📖</span>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '12px' }}>No articles found for the "{activeLevel}" level.</p>
+              <button className="btn btn-secondary btn-sm" onClick={() => setShowImporter(true)}>
+                Generate or load one now!
+              </button>
+            </div>
+          ) : (
+            <div className="article-selector">
+              {filteredArticles.map((art) => (
+                <div
+                  key={art.id}
+                  className="card-glass article-card"
+                  onClick={() => setSelectedArticle(art)}
+                  style={{ cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s' }}
+                >
+                  <h3>{art.title}</h3>
+                  <div className="meta">
+                    <span>📶 {art.level}</span>
+                    <span>📝 {art.sentences.length} sentences</span>
+                    {art.source && <span style={{ opacity: 0.7 }}>🏷️ {art.source}</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <div>

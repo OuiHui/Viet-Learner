@@ -20,17 +20,12 @@
     },
     {
       "name": "Adjectives"
+    },
+    {
+      "name": "Colors"
     }
   ],
   "flashcards": [
-    {
-      "_id": "fc_0",
-      "word": "Gia đình",
-      "definition": "Family",
-      "category": "Family",
-      "example": "Gia đình tôi có bốn người.",
-      "translation": "My family has four people."
-    },
     {
       "_id": "fc_1",
       "word": "Bố mẹ",
@@ -38,22 +33,6 @@
       "category": "Family",
       "example": "Bố mẹ tôi sống ở Hà Nội.",
       "translation": "My parents live in Hanoi."
-    },
-    {
-      "_id": "fc_2",
-      "word": "Ăn cơm",
-      "definition": "To eat a meal / rice",
-      "category": "Food",
-      "example": "Bạn đã ăn cơm chưa?",
-      "translation": "Have you eaten rice yet?"
-    },
-    {
-      "_id": "fc_3",
-      "word": "Phở",
-      "definition": "Pho (Vietnamese noodle soup)",
-      "category": "Food",
-      "example": "Tôi thích ăn phở bò vào buổi sáng.",
-      "translation": "I like to eat beef pho in the morning."
     },
     {
       "_id": "fc_4",
@@ -72,40 +51,6 @@
       "translation": "Reading books helps me learn many things."
     },
     {
-      "_id": "fc_6",
-      "word": "Xin chào",
-      "definition": "Hello / Greetings",
-      "category": "Common Words",
-      "example": "Xin chào! Rất vui được gặp bạn.",
-      "translation": "Hello! Nice to meet you."
-    },
-    {
-      "_id": "fc_7",
-      "word": "Cảm ơn",
-      "definition": "Thank you",
-      "category": "Common Words",
-      "example": "Cảm ơn bạn đã giúp đỡ tôi.",
-      "translation": "Thank you for helping me."
-    },
-    {
-      "_id": "fc_1782349082228w8jld",
-      "word": "cái thìa",
-      "definition": "spoon (Northern Dialect)",
-      "category": "Context",
-      "example": "Tôi ăn súp bằng cái muỗng.",
-      "translation": "I eat soup with a spoon.",
-      "createdAt": "2026-06-25T00:58:02.228Z"
-    },
-    {
-      "_id": "fc_1782349796630b2sz6",
-      "word": "cái muỗng",
-      "definition": "spoon (South)",
-      "category": "Context",
-      "example": "Tôi ăn súp bằng cái muỗng.",
-      "translation": "I eat soup with a spoon.",
-      "createdAt": "2026-06-25T01:09:56.630Z"
-    },
-    {
       "_id": "fc_1782349796635vjsz8",
       "word": "cái muỗng",
       "definition": "spoon (South)",
@@ -122,15 +67,6 @@
       "example": "Tôi muốn học từ \"đơn giản\" ngày hôm nay.",
       "translation": "I want to learn the word \"simple\" today.",
       "createdAt": "2026-06-25T01:14:49.956Z"
-    },
-    {
-      "_id": "fc_1782350097946kyis3",
-      "word": "đơn giản",
-      "definition": "simple",
-      "category": "Common Words",
-      "example": "Tôi muốn học từ \"đơn giản\" ngày hôm nay.",
-      "translation": "I want to learn the word \"simple\" today.",
-      "createdAt": "2026-06-25T01:14:57.946Z"
     },
     {
       "_id": "fc_1782351036026fqc1n",
@@ -167,29 +103,146 @@
       "example": "",
       "translation": "",
       "createdAt": "2026-06-25T01:45:24.175Z"
+    },
+    {
+      "_id": "fc_1782439958348pnccc",
+      "word": "Nhà vệ sinh",
+      "definition": "Restroom",
+      "category": "Common Words",
+      "example": "",
+      "translation": "",
+      "createdAt": "2026-06-26T02:12:38.348Z"
+    },
+    {
+      "_id": "fc_17824401403760j3kp",
+      "word": "liên tục",
+      "definition": "continuously / non-stop",
+      "category": "Context",
+      "example": "Các điểm đến hàng đầu như Vịnh Hạ Long, Hội An và Phú Quốc liên tục trong tình trạng quá tải.",
+      "translation": "Top destinations such as Ha Long Bay, Hoi An, and Phu Quoc are continuously in a state of overload.",
+      "createdAt": "2026-06-26T02:15:40.376Z"
+    },
+    {
+      "_id": "fc_1782440478212kgex0",
+      "word": "công việc",
+      "definition": "work / job",
+      "category": "Context",
+      "example": "Mọi người gặp nhau để trò chuyện, bàn công việc hoặc đơn giản là ngắm phố phường.",
+      "translation": "Everyone meets to chat, discuss work, or simply watch the streets.",
+      "createdAt": "2026-06-26T02:21:18.212Z"
+    },
+    {
+      "_id": "fc_1782443784205cz2eh",
+      "word": "Việt Nam",
+      "definition": "Vietnam ([Guide unavailable])",
+      "category": "Context",
+      "example": "Tôi muốn tìm hiểu về Hồ Gươm ở Việt Nam.",
+      "translation": "I want to learn about Ho Guom in Vietnam.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:16:24.205Z"
+    },
+    {
+      "_id": "fc_17824437842056hirb",
+      "word": "Văn hóa",
+      "definition": "Culture ([Guide unavailable])",
+      "category": "Context",
+      "example": "",
+      "translation": "",
+      "starred": false,
+      "createdAt": "2026-06-26T03:16:24.205Z"
+    },
+    {
+      "_id": "fc_1782443784206p494i",
+      "word": "Người dân",
+      "definition": "People ([Guide unavailable])",
+      "category": "Context",
+      "example": "",
+      "translation": "",
+      "starred": false,
+      "createdAt": "2026-06-26T03:16:24.206Z"
+    },
+    {
+      "_id": "fc_1782444522306ero7l",
+      "word": "đỏ",
+      "definition": "red",
+      "category": "Colors",
+      "example": "Máu đỏ.",
+      "translation": "Blood is red.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:42.306Z"
+    },
+    {
+      "_id": "fc_17824445242824jjxv",
+      "word": "xanh lá",
+      "definition": "green",
+      "category": "Colors",
+      "example": "Hi vọng màu xanh lá.",
+      "translation": "Hope is green.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:44.282Z"
+    },
+    {
+      "_id": "fc_17824445263151qtb2",
+      "word": "xanh dương",
+      "definition": "blue",
+      "category": "Colors",
+      "example": "Nó màu xanh dương.",
+      "translation": "It's blue.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:46.315Z"
+    },
+    {
+      "_id": "fc_1782444528308wn8d0",
+      "word": "vàng",
+      "definition": "yellow",
+      "category": "Colors",
+      "example": "Lửa thử vàng.",
+      "translation": "Fire is the test of gold.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:48.308Z"
+    },
+    {
+      "_id": "fc_1782444530305goakk",
+      "word": "cam",
+      "definition": "orange",
+      "category": "Colors",
+      "example": "Tom thích cam.",
+      "translation": "Tom likes orange.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:50.305Z"
+    },
+    {
+      "_id": "fc_1782444532277xg916",
+      "word": "tím",
+      "definition": "purple",
+      "category": "Colors",
+      "example": "Quyển sách có màu tím.",
+      "translation": "The book is purple.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:52.277Z"
+    },
+    {
+      "_id": "fc_17824445342863jpys",
+      "word": "đen",
+      "definition": "black",
+      "category": "Colors",
+      "example": "Đến lượt đen.",
+      "translation": "It's black's turn.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:54.286Z"
+    },
+    {
+      "_id": "fc_1782444536314mznwv",
+      "word": "trắng",
+      "definition": "white",
+      "category": "Colors",
+      "example": "Tom chỉ ăn thịt trắng.",
+      "translation": "Tom only eats white meat.",
+      "starred": false,
+      "createdAt": "2026-06-26T03:28:56.314Z"
     }
   ],
   "vocabulary": [
-    {
-      "_id": "v_1782349082228clo47",
-      "word": "cái thìa",
-      "definition": "spoon (Northern Dialect)",
-      "category": "Kitchen / Utensil",
-      "contextSentence": "Tôi ăn súp bằng cái muỗng.",
-      "contextTranslation": "I eat soup with a spoon.",
-      "source": "English Translator",
-      "dateLearned": "2026-06-25T00:58:02.228Z"
-    },
-    {
-      "_id": "v_1782349796630c2mdn",
-      "word": "cái muỗng",
-      "definition": "spoon (South)",
-      "category": "Food",
-      "contextSentence": "Tôi ăn súp bằng cái muỗng.",
-      "contextTranslation": "I eat soup with a spoon.",
-      "source": "English Translator",
-      "dateLearned": "2026-06-25T01:09:56.630Z"
-    },
     {
       "_id": "v_1782350089956l3pzv",
       "word": "đơn giản",
@@ -199,15 +252,152 @@
       "contextTranslation": "I want to learn the word \"simple\" today.",
       "source": "English Translator",
       "dateLearned": "2026-06-25T01:14:49.956Z"
+    },
+    {
+      "_id": "v_17824401403767g7xh",
+      "word": "liên tục",
+      "definition": "continuously / non-stop",
+      "category": "Context",
+      "contextSentence": "Các điểm đến hàng đầu như Vịnh Hạ Long, Hội An và Phú Quốc liên tục trong tình trạng quá tải.",
+      "contextTranslation": "Top destinations such as Ha Long Bay, Hoi An, and Phu Quoc are continuously in a state of overload.",
+      "source": "Reading: VnExpress: Du Lịch Việt Nam Đón Lượt Khách Quốc Tế Kỷ Lục",
+      "dateLearned": "2026-06-26T02:15:40.376Z"
+    },
+    {
+      "_id": "v_1782440478211ylgjo",
+      "word": "công việc",
+      "definition": "work / job",
+      "category": "Context",
+      "contextSentence": "Mọi người gặp nhau để trò chuyện, bàn công việc hoặc đơn giản là ngắm phố phường.",
+      "contextTranslation": "Everyone meets to chat, discuss work, or simply watch the streets.",
+      "source": "Reading: Thói Quen Uống Cà Phê Của Người Việt (Vietnamese Coffee Habits)",
+      "dateLearned": "2026-06-26T02:21:18.212Z"
     }
   ],
   "progress": {
     "userId": "default_user",
-    "streak": 1,
-    "lastActive": "2026-06-25T01:44:07.639Z",
+    "streak": 2,
+    "lastActive": "2026-06-26T03:56:09.384Z",
     "articlesRead": [
-      "article_int_1"
+      "article_int_1",
+      "article_adv_1",
+      "article_beg_1",
+      "art_1782444193521sw7qf",
+      "art_17824452108265gxb1",
+      "art_1782445290149t5wax",
+      "art_1782445773483gfh1f",
+      "art_1782446169364l2hqk"
     ],
     "listeningSeconds": 0
-  }
+  },
+  "articles": [
+    {
+      "_id": "art_1782443784203wu9zs",
+      "id": "art_178244378420360d81",
+      "title": "Đọc về Hồ Gươm (Reading about Ho Guom)",
+      "level": "Beginner",
+      "sentences": [
+        {
+          "text": "Tôi muốn tìm hiểu về Hồ Gươm ở Việt Nam.",
+          "translation": "I want to learn about Ho Guom in Vietnam."
+        },
+        {
+          "text": "Hồ Gươm rất đẹp và nổi tiếng.",
+          "translation": "Ho Guom is very beautiful and popular."
+        },
+        {
+          "text": "Nhiều người Việt thích Hồ Gươm mỗi ngày.",
+          "translation": "Many Vietnamese people enjoy Ho Guom every day."
+        },
+        {
+          "text": "Tôi hy vọng sớm được đến thăm Việt Nam và gặp Hồ Gươm.",
+          "translation": "I hope to visit Vietnam and see Ho Guom soon."
+        }
+      ],
+      "source": "AI Generated",
+      "createdAt": "2026-06-26T03:16:24.203Z"
+    },
+    {
+      "_id": "art_1782444193521z3ros",
+      "id": "art_1782444193521sw7qf",
+      "title": "Gia đình khách Tây 'mê tít' Hội An, ở nguyên kỳ nghỉ 11 ngày (News)",
+      "level": "Advanced",
+      "sentences": [
+        {
+          "text": "Thay vì di chuyển nhiều nơi ở Việt Nam như được khuyên, gia đình một du khách New Zealand chọn ở Hội An suốt 11 ngày và \"mê tít\".",
+          "translation": "Instead of traveling to many places in Vietnam as advised, the family of a New Zealand tourist chose to stay in Hoi An for 11 days and \"fell in love\"."
+        }
+      ],
+      "source": "VnExpress News",
+      "createdAt": "2026-06-26T03:23:13.521Z"
+    },
+    {
+      "_id": "art_17824452108267wyb3",
+      "id": "art_17824452108265gxb1",
+      "title": "Gu mặc xa xỉ của tiền đạo Erling Haaland (News)",
+      "level": "Advanced",
+      "sentences": [
+        {
+          "text": "Erling Haaland - cầu thủ tuyển Na Uy - đam mê túi Hermès, pyjama lụa, thường diện hàng ngày hay khi tiệc tùng.",
+          "translation": "Erling Haaland - Norwegian national team player - is passionate about Hermès bags and silk pajamas, often wearing them every day or at parties."
+        }
+      ],
+      "source": "VnExpress News",
+      "createdAt": "2026-06-26T03:40:10.826Z"
+    },
+    {
+      "_id": "art_17824452901495cltb",
+      "id": "art_1782445290149t5wax",
+      "title": "Đọc về kể cho tôi nghe về câu chuyện của một cậu bé muốn trở thành nhạc sĩ (Reading about tell me about a story of a boy who wanted to become a musician)",
+      "level": "Intermediate",
+      "sentences": [
+        {
+          "text": "Nếu bạn đến Việt Nam, bạn sẽ thấy rằng kể cho tôi câu chuyện về một cậu bé muốn trở thành nhạc sĩ đóng một vai trò quan trọng trong cuộc sống hàng ngày.",
+          "translation": "If you travel to Vietnam, you will find that tell me about a story of a boy who wanted to become a musician plays an important role in daily life."
+        },
+        {
+          "text": "Người Việt Nam có cách thưởng thức độc đáo, kể cho tôi nghe câu chuyện về một cậu bé muốn trở thành nhạc sĩ, phản ánh phong tục truyền thống của họ.",
+          "translation": "Vietnamese people have a unique way of enjoying tell me about a story of a boy who wanted to become a musician, which reflects their traditional customs."
+        },
+        {
+          "text": "Mỗi buổi sáng hoặc cuối tuần, bạn bè tụ tập cùng nhau chia sẻ những câu chuyện và trải nghiệm kể cho tôi nghe về câu chuyện của một cậu bé mong muốn cùng nhau trở thành nhạc sĩ.",
+          "translation": "Every morning or weekend, friends gather together to share stories and experience tell me about a story of a boy who wanted to become a musician together."
+        },
+        {
+          "text": "Tìm hiểu về kể cho tôi nghe câu chuyện về một cậu bé muốn trở thành nhạc sĩ giúp các sinh viên nước ngoài hiểu được nền văn hóa phong phú của đất nước xinh đẹp này.",
+          "translation": "Learning about tell me about a story of a boy who wanted to become a musician helps foreign students understand the rich culture of this beautiful country."
+        }
+      ],
+      "source": "AI Generated",
+      "createdAt": "2026-06-26T03:41:30.149Z"
+    },
+    {
+      "_id": "art_1782445773483sg59l",
+      "id": "art_1782445773483gfh1f",
+      "title": "Đêm không ngủ vì World Cup của người nước ngoài ở Việt Nam (News)",
+      "level": "Advanced",
+      "sentences": [
+        {
+          "text": "Bước vào quán cà phê ở phường Tây Hồ, Hà Nội lúc 4h sáng, Will Courageux thấy không gian 50 m2 đã kín chỗ, có khoảng 20 người nước ngoài khác đang chờ tiếng còi khai cuộc.",
+          "translation": "Entering a coffee shop in Tay Ho ward, Hanoi at 4 a.m., Will Courageux saw that the 50 square meter space was full, with about 20 other foreigners waiting for the opening whistle."
+        }
+      ],
+      "source": "VnExpress News",
+      "createdAt": "2026-06-26T03:49:33.483Z"
+    },
+    {
+      "_id": "art_17824461693648c3j9",
+      "id": "art_1782446169364l2hqk",
+      "title": "Bộ trưởng Thụy Điển địu con nhỏ dự họp EU (News)",
+      "level": "Advanced",
+      "sentences": [
+        {
+          "text": "Bộ trưởng Khí hậu Thụy Điển Pourmokhtari địu con trai ba tháng tuổi dự họp EU để nhấn mạnh lợi ích của chính sách nghỉ chăm con.",
+          "translation": "Swedish Climate Minister Pourmokhtari carried his three-month-old son to the EU meeting to highlight the benefits of the paternity leave policy."
+        }
+      ],
+      "source": "VnExpress News",
+      "createdAt": "2026-06-26T03:56:09.364Z"
+    }
+  ]
 }

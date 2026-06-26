@@ -4,3 +4,4 @@ node_modules/
 .npm
 package-lock.json
 .next/
+db.json

@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DashboardView from '../components/DashboardView';
 import ReadingLoungeView from '../components/ReadingLoungeView';
 import FlashcardsView from '../components/FlashcardsView';
-import DictionaryView from '../components/DictionaryView';
 import TranslatorView from '../components/TranslatorView';
+
 
 export default function AppHome() {
   const [activeView, setActiveView] = useState('dashboard');
@@ -17,7 +17,7 @@ export default function AppHome() {
   const [loading, setLoading] = useState(true);
 
   // Load all user metrics and database items
-  const loadAllData = async () => {
+  const loadAllData = useCallback(async () => {
     try {
       const [progRes, vocabRes, cardsRes, catsRes] = await Promise.all([
         fetch('/api/progress'),
@@ -33,7 +33,6 @@ export default function AppHome() {
           cardsRes.json(),
           catsRes.json(),
         ]);
-
         setProgress(prog);
         setVocabulary(vocab);
         setFlashcards(cards);
@@ -44,7 +43,7 @@ export default function AppHome() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   // Perform active check-in on mount, then reload metrics
   useEffect(() => {
@@ -57,9 +56,9 @@ export default function AppHome() {
       await loadAllData();
     };
     initializeApp();
-  }, []);
+  }, [loadAllData]);
 
-  const handleMarkAsRead = async (articleId) => {
+  const handleMarkAsRead = useCallback(async (articleId) => {
     try {
       const res = await fetch('/api/progress/read', {
         method: 'POST',
@@ -73,12 +72,13 @@ export default function AppHome() {
     } catch (err) {
       console.error('Could not log article read progress:', err);
     }
-  };
+  }, []);
 
   const handleNavigate = (viewId) => {
     setActiveView(viewId);
     setSidebarOpen(false);
   };
+
 
   // Render view-specific headers dynamically
   const getViewTitle = () => {
@@ -88,9 +88,7 @@ export default function AppHome() {
       case 'reading':
         return 'Reading Lounge';
       case 'flashcards':
-        return 'Flashcard Decks';
-      case 'dictionary':
-        return 'Context Vocab';
+        return 'Vocab & Decks';
       case 'translator':
         return 'English Translator';
       default:
@@ -105,9 +103,7 @@ export default function AppHome() {
       case 'reading':
         return 'Learn words directly from real context sentences';
       case 'flashcards':
-        return 'Customized flashcard decks filtered by category';
-      case 'dictionary':
-        return 'Manage and search your saved vocabulary';
+        return 'Premium Quizlet-style vocabulary list and study decks';
       case 'translator':
         return 'Translate English words & compare Northern and Southern dialects';
       default:
@@ -115,7 +111,8 @@ export default function AppHome() {
     }
   };
 
-  const savedWordList = vocabulary.map((v) => v.word.toLowerCase());
+
+  const savedWordList = useMemo(() => vocabulary.map((v) => v.word.toLowerCase()), [vocabulary]);
 
   return (
     <div className="app-container">
@@ -154,14 +151,9 @@ export default function AppHome() {
             className={`nav-item ${activeView === 'flashcards' ? 'active' : ''}`}
             onClick={() => handleNavigate('flashcards')}
           >
-            <span>🎴 Flashcard Decks</span>
+            <span>🎴 Vocab & Decks</span>
           </div>
-          <div
-            className={`nav-item ${activeView === 'dictionary' ? 'active' : ''}`}
-            onClick={() => handleNavigate('dictionary')}
-          >
-            <span>📖 Context Vocab</span>
-          </div>
+
           <div
             className={`nav-item ${activeView === 'translator' ? 'active' : ''}`}
             onClick={() => handleNavigate('translator')}
@@ -224,11 +216,11 @@ export default function AppHome() {
                   flashcards={flashcards}
                   categories={categories}
                   onFlashcardsChange={loadAllData}
+                  setFlashcards={setFlashcards}
                 />
               )}
-              {activeView === 'dictionary' && (
-                <DictionaryView vocabulary={vocabulary} onVocabDeleted={loadAllData} />
-              )}
+
+
               {activeView === 'translator' && (
                 <TranslatorView
                   savedWords={savedWordList}
